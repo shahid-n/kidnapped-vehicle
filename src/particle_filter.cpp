@@ -102,16 +102,16 @@ void ParticleFilter::dataAssociation(vector<LandmarkObs> predicted,
   for (unsigned int i = 0; i < observations.size(); ++i) {
     int nearest_LM_id = -1;
 
-  for (unsigned int j = 0; j < predicted.size(); ++j) {
-    double curr_dist = dist(observations[i].x, observations[i].y, predicted[j].x, predicted[j].y);
+    for (unsigned int j = 0; j < predicted.size(); ++j) {
+      double curr_dist = dist(observations[i].x, observations[i].y, predicted[j].x, predicted[j].y);
 
-    if (curr_dist < min_dist) {
-      min_dist = curr_dist;
-      nearest_LM_id = predicted[j].id;
+      if (curr_dist < min_dist) {
+        min_dist = curr_dist;
+        nearest_LM_id = predicted[j].id;
+      }
     }
-  }
 
-  observations[i].id = nearest_LM_id;
+    observations[i].id = nearest_LM_id;
   }
 }
 
