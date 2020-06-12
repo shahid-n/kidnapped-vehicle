@@ -67,7 +67,7 @@ void ParticleFilter::prediction(double delta_t, double std_pos[],
   normal_distribution<double> N_theta(0, std_pos[2]);
 
   for (int i = 0; i < num_particles; ++i) {
-  //  Division by zero check; execute the else branch if yaw_rate == 0.0
+//  Division by zero check; execute the else branch if yaw_rate == 0.0
     if (fabs(yaw_rate) > 0.0) {
       particles[i].x += velocity/yaw_rate*(sin(particles[i].theta + yaw_rate*delta_t) - sin(particles[i].theta));
       particles[i].y += velocity/yaw_rate*(cos(particles[i].theta) - cos(particles[i].theta + yaw_rate*delta_t));
@@ -78,10 +78,10 @@ void ParticleFilter::prediction(double delta_t, double std_pos[],
       particles[i].y += velocity*sin(particles[i].theta)*delta_t;
     }
 
-  //  Add zero-mean Gaussian noise
-   particles[i].x += N_x(gen);
-   particles[i].y += N_y(gen);
-   particles[i].theta += N_theta(gen);
+//  Add zero-mean Gaussian noise
+    particles[i].x += N_x(gen);
+    particles[i].y += N_y(gen);
+    particles[i].theta += N_theta(gen);
   }
 }
 
@@ -112,7 +112,7 @@ void ParticleFilter::dataAssociation(vector<LandmarkObs> predicted,
   }
 
   observations[i].id = nearest_LM_id;
- }
+  }
 }
 
 void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
@@ -215,10 +215,10 @@ vector<Particle> resampled_particles(particles.size());
     uniform_real_distribution<double> rnd_weight(0.0, max_weight);
     beta += 2.0*rnd_weight(gen);
 
-     while (beta > weights[idx]) {
-       beta -= weights[idx];
-       idx = (idx + 1) % num_particles;
-     }
+    while (beta > weights[idx]) {
+      beta -= weights[idx];
+      idx = (idx + 1) % num_particles;
+    }
 
     resampled_particles[i] = particles[idx];
   }
