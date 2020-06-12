@@ -175,7 +175,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 
         if (T_obsv[j].id == pred_LM[k].id) {
 //        Multivariate Gaussian distribution
-          prob = 1/(2*M_PI*s_x*s_y)*exp(-pow((obsv_x - pr_x), 2)/(2*s_x*s_x) - pow((obsv_y - pr_y), 2)/(2*s_y*s_y));
+          prob = 1/(2*M_PI*s_x*s_y)*exp(-pow(obsv_x - pr_x, 2)/(2*s_x*s_x) - pow(obsv_y - pr_y, 2)/(2*s_y*s_y));
           particles[i].weight *= prob;
         }
       }
@@ -203,11 +203,8 @@ vector<Particle> resampled_particles(particles.size());
 
 //Generate random particle index
   uniform_int_distribution<int> rnd_particle_idx(0, num_particles - 1);
-
   int idx = rnd_particle_idx(gen);
-
   double beta = 0.0;
-
   double max_weight = *max_element(weights.begin(), weights.end());
 
 //Resampling wheel
