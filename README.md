@@ -1,20 +1,40 @@
 # Overview
-This repository contains all the code needed to complete the final project for the Localization course in Udacity's Self-Driving Car Nanodegree.
+The goal of this project is to perform 2-D localisation by means of the particle filter approach.
 
 #### Submission
-All you will need to submit is your `src` directory. You should probably do a `git pull` before submitting to verify that your project passes the most up-to-date version of the grading code (there are some parameters in `src/main.cpp` which govern the requirements on accuracy and run time).
+The main project submission is the following repository link: [Kidnapped Vehicle Project](https://github.com/shahid-n/kidnapped-vehicle).
+
+Within this repository, the localisation algorithm has been implemented in the file [particle_filter.cpp](https://github.com/shahid-n/kidnapped-vehicle/blob/master/src/particle_filter.cpp).
 
 ## Project Introduction
-Your robot has been kidnapped and transported to a new location! Luckily it has a map of this location, a (noisy) GPS estimate of its initial location, and lots of (noisy) sensor and control data.
+Our autonomous robot has been kidnapped and transported to a new location! Luckily it has a map of this location, a (noisy) GPS estimate of its initial position, and lots of (noisy) sensor and control data.
 
-In this project you will implement a 2 dimensional particle filter in C++. Your particle filter will be given a map and some initial localization information (analogous to what a GPS would provide). At each time step your filter will also get observation and control data.
+In this project we have implemented a two dimensional particle filter in C++. The particle filter shall be given a map and some initial localisation information (analogous to what a GPS would provide). At each time step the filter will also get observation and control data.
 
+[//]: # (Image References)
+
+[run1]: ./output/pass_100p.png "Output from the first run: 100 particles"
+[run2]: ./output/pass_1000p.png "Output from the second run: 1000 particles"
+
+## Project Output
+The project was compiled and run with the following two parameter values: 100 and 1000 particles, respectively.
+
+The figure below shows the simulation end result with 100 particles.
+
+![alt text][run1]
+
+Next, the following figure shows the result of creating 1000 particles.
+
+![alt text][run2]
+
+Both simulations passed on the author's local machine after meeting all the evaluation criteria. In order to ensure the best chances of success on a wide variety of platforms, the submitted code has this parameter set to 20 particles, which also passes locally (this simulation result is not included, however).
+---
 ## Running the Code
-This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
+This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases).
 
-This repository includes two files that can be used to set up and install uWebSocketIO for either Linux or Mac systems. For windows you can use either Docker, VMware, or even Windows 10 Bash on Ubuntu to install uWebSocketIO.
+This repository includes two files that can be used to set up and install uWebSocketIO for either Linux or Mac systems. For windows one can use either Docker, VMware, or even Windows 10 Bash on Ubuntu to install uWebSocketIO.
 
-Once the install for uWebSocketIO is complete, the main program can be built and ran by doing the following from the project top directory.
+Once the install for uWebSocketIO is complete, the main programme can be built and run by doing the following from the project top directory.
 
 1. mkdir build
 2. cd build
@@ -22,21 +42,21 @@ Once the install for uWebSocketIO is complete, the main program can be built and
 4. make
 5. ./particle_filter
 
-Alternatively some scripts have been included to streamline this process, these can be leveraged by executing the following in the top directory of the project:
+Alternatively some scripts have been included to streamline this process; these can be leveraged by executing the following in the top directory of the project:
 
 1. ./clean.sh
 2. ./build.sh
 3. ./run.sh
 
-Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
+Tips for setting up the local environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
 
-Note that the programs that need to be written to accomplish the project are src/particle_filter.cpp, and particle_filter.h
+Note that the files which define the core localisation algorithm are [src/particle_filter.cpp](https://github.com/shahid-n/kidnapped-vehicle/blob/master/src/particle_filter.cpp), and [particle_filter.h](https://github.com/shahid-n/kidnapped-vehicle/blob/master/src/particle_filter.h).
 
-The program main.cpp has already been filled out, but feel free to modify it.
+The programme main.cpp had already been filled out to facilitate automated grading/evaluation of the project.
 
-Here is the main protocol that main.cpp uses for uWebSocketIO in communicating with the simulator.
+Below is a summary of the main protocol that `main.cpp` uses for uWebSocketIO in communicating with the simulator.
 
-INPUT: values provided by the simulator to the c++ program
+INPUT: values provided by the simulator to the C++ programme
 
 // sense noisy position data from the simulator
 
@@ -59,7 +79,7 @@ INPUT: values provided by the simulator to the c++ program
 ["sense_observations_y"]
 
 
-OUTPUT: values provided by the c++ program to the simulator
+OUTPUT: values provided by the c++ programme to the simulator
 
 // best particle values used for calculating the error evaluation
 
@@ -81,12 +101,6 @@ OUTPUT: values provided by the c++ program to the simulator
 
 ["best_particle_sense_y"] <= list of sensed y positions
 
-
-Your job is to build out the methods in `particle_filter.cpp` until the simulator output says:
-
-```
-Success! Your particle filter passed!
-```
 
 # Implementing the Particle Filter
 The directory structure of this repository is as follows:
@@ -112,12 +126,8 @@ root
     |   particle_filter.h
 ```
 
-The only file you should modify is `particle_filter.cpp` in the `src` directory. The file contains the scaffolding of a `ParticleFilter` class and some associated methods. Read through the code, the comments, and the header file `particle_filter.h` to get a sense for what this code is expected to do.
-
-If you are interested, take a look at `src/main.cpp` as well. This file contains the code that will actually be running your particle filter and calling the associated methods.
-
 ## Inputs to the Particle Filter
-You can find the inputs to the particle filter in the `data` directory.
+The inputs to the particle filter algorithm are stored in the `data` directory.
 
 #### The Map*
 `map_data.txt` includes the position of landmarks (in meters) on an arbitrary Cartesian coordinate system. Each row has three columns
@@ -129,15 +139,4 @@ You can find the inputs to the particle filter in the `data` directory.
 
 > * Map data provided by 3D Mapping Solutions GmbH.
 
-## Success Criteria
-If your particle filter passes the current grading code in the simulator (you can make sure you have the current version at any time by doing a `git pull`), then you should pass!
 
-The things the grading code is looking for are:
-
-
-1. **Accuracy**: your particle filter should localize vehicle position and yaw to within the values specified in the parameters `max_translation_error` and `max_yaw_error` in `src/main.cpp`.
-
-2. **Performance**: your particle filter should complete execution within the time of 100 seconds.
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
