@@ -28,6 +28,7 @@ Next, the following figure shows the result of creating 1000 particles.
 ![alt text][run2]
 
 Both simulations passed on the author's local machine after meeting all the evaluation criteria. In order to ensure the best chances of success on a wide variety of platforms, the submitted code has this parameter set to 20 particles, which also passes locally (this simulation result is not included, however).
+
 ---
 ## Running the Code
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases).
